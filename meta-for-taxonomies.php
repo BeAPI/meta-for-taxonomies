@@ -21,9 +21,6 @@ require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.inc.php' );
 require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.tpl.php' );
 
 // 4. Meta API hook
-install_table_term_meta
 register_activation_hook( __FILE__, 'install_table_termmeta' );
 add_action ( 'delete_term', 'remove_meta_during_delete', 10, 3 );
-
-
 ?>
