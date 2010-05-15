@@ -1,4 +1,15 @@
 <?php
+/**
+ * Add metadata for term
+ *
+ * @param string $taxonomy 
+ * @param integer $term_id 
+ * @param string $meta_key 
+ * @param string|array $meta_value 
+ * @param boolean $unique 
+ * @return boolean
+ * @author Amaury Balmer
+ */
 function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '', $unique = false ) {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -14,6 +25,16 @@ function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_valu
 	return add_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $meta_value, $unique );
 }
 
+/**
+ * Delete term meta for term
+ *
+ * @param string $taxonomy 
+ * @param integer $term_id 
+ * @param string $meta_key 
+ * @param string|array $meta_value 
+ * @return boolean
+ * @author Amaury Balmer
+ */
 function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '') {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -29,6 +50,16 @@ function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_v
 	return delete_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $meta_value );
 }
 
+/**
+ * Get a term meta field
+ *
+ * @param string $taxonomy 
+ * @param integer $term_id 
+ * @param string|array $meta_key 
+ * @param boolean $single 
+ * @return boolean
+ * @author Amaury Balmer
+ */
 function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = false ) {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -44,6 +75,17 @@ function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = 
 	return get_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $single );
 }
 
+/**
+ * Update a term meta field
+ *
+ * @param string $taxonomy 
+ * @param integer $term_id 
+ * @param string $meta_key 
+ * @param string|array $meta_value 
+ * @param string|array $prev_value 
+ * @return boolean
+ * @author Amaury Balmer
+ */
 function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value, $prev_value = '' ) {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -59,6 +101,14 @@ function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value,
 	return update_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $meta_value, $prev_value );
 }
 
+/**
+ * Get a term meta field
+ *
+ * @param string $taxonomy 
+ * @param integer $term_id 
+ * @return boolean
+ * @author Amaury Balmer
+ */
 function get_term_custom( $taxonomy = '', $term_id = 0 ) {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -74,6 +124,14 @@ function get_term_custom( $taxonomy = '', $term_id = 0 ) {
 	return get_term_taxonomy_custom( $term->term_taxonomy_id );
 }
 
+/**
+ * undocumented function
+ *
+ * @param string $taxonomy 
+ * @param string $term_id 
+ * @return void
+ * @author Amaury Balmer
+ */
 function get_term_custom_keys( $taxonomy = '', $term_id = 0 ) {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -89,6 +147,15 @@ function get_term_custom_keys( $taxonomy = '', $term_id = 0 ) {
 	return get_term_taxonomy_custom_keys( $term->term_taxonomy_id );
 }
 
+/**
+ * undocumented function
+ *
+ * @param string $taxonomy 
+ * @param string $term_id 
+ * @param string $key 
+ * @return void
+ * @author Amaury Balmer
+ */
 function get_term_custom_values( $taxonomy = '', $term_id = 0, $key = '' ) {
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
@@ -104,11 +171,8 @@ function get_term_custom_values( $taxonomy = '', $term_id = 0, $key = '' ) {
 	return get_term_taxonomy_custom_values( $key, $term->term_taxonomy_id );
 }
 
-
 /**
- * add_term_taxonomy_meta() - adds metadata for term taxonomy context
- *
- * {@internal Missing Long Description}}
+ * Add metadata for term taxonomy context
  *
  * @package Simple Taxonomy Meta
  * @uses $wpdb
@@ -137,9 +201,7 @@ function add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_va
 }
 
 /**
- * delete_term_taxonomy_meta() - delete term metadata
- *
- * {@internal Missing Long Description}}
+ * Delete term metadata
  *
  * @package Simple Taxonomy Meta
  * @uses $wpdb
@@ -175,9 +237,7 @@ function delete_term_taxonomy_meta($term_taxonomy_id = 0, $key = '', $value = ''
 }
 
 /**
- * get_term_taxonomy_meta() - Get a term meta field
- *
- * {@internal Missing Long Description}}
+ * Get a term meta field
  *
  * @package Simple Taxonomy Meta
  * @uses $wpdb
@@ -209,9 +269,8 @@ function get_term_taxonomy_meta($term_taxonomy_id, $meta_key, $single = false) {
 }
 
 /**
- * update_term_taxonomy_meta() - Update a term meta field
+ * Update a term meta field
  *
- * {@internal Missing Long Description}}
  *
  * @package Simple Taxonomy Meta
  * @uses $wpdb
@@ -248,7 +307,7 @@ function update_term_taxonomy_meta($term_taxonomy_id, $meta_key, $meta_value, $p
 }
 
 /**
- * delete_term_meta_by_key() - Delete everything from term meta matching $term_meta_key
+ * Delete everything from term meta matching $term_meta_key
  *
  * @package Simple Taxonomy Meta
  * @uses $wpdb
@@ -267,7 +326,40 @@ function delete_term_meta_by_key( $term_meta_key = '' ) {
 }
 
 /**
- * delete_term_meta_by_term_taxonomy_id() - Delete everything from term taxonomy ID matching $term_taxonomy_id
+ * Delete a term by key/value
+ *
+ * @param string $key 
+ * @param string $value 
+ * @return boolean
+ * @author Amaury Balmer
+ */
+function delete_term_meta_by_key_and_value($key = '', $value = '') {
+	global $wpdb;
+
+	// expected_slashed ($key, $value)
+	$key 	= stripslashes( $key );
+	$value 	= stripslashes( $value );
+
+	if ( empty( $value ) )
+		$meta_id = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM $wpdb->termmeta WHERE meta_key = %s", $key ) );
+	else
+		$meta_id = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM $wpdb->termmeta WHERE meta_key = %s AND meta_value = %s", $key, $value ) );
+
+	if ( !$meta_id )
+		return false;
+
+	if ( empty( $value ) )
+		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->termmeta WHERE meta_key = %s", $key ) );
+	else
+		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->termmeta WHERE meta_key = %s AND meta_value = %s", $key, $value ) );
+
+	/** @todo Get term_taxonomy_ids and delete cache */
+	// wp_cache_delete($term_taxonomy_id, 'term_meta');
+	return true;
+}
+
+/**
+ * Delete everything from term taxonomy ID matching $term_taxonomy_id
  *
  * @package Simple Taxonomy Meta
  * @uses $wpdb
@@ -285,9 +377,8 @@ function delete_term_meta_by_term_taxonomy_id( $term_taxonomy_id = 0 ) {
 }
 
 /**
- * update_termmeta_cache() - {@internal Missing Short Description}}
+ * {@internal Missing Short Description}}
  *
- * {@internal Missing Long Description}}
  *
  * @package Simple Taxonomy Meta
  *
@@ -351,9 +442,8 @@ function update_termmeta_cache( $term_taxonomy_ids ) {
 }
 
 /**
- * get_term_taxonomy_custom() - Retrieve term custom fields
+ * Retrieve term custom fields
  *
- * {@internal Missing Long Description}}
  *
  * @package Simple Taxonomy Meta
  *
@@ -378,7 +468,7 @@ function get_term_taxonomy_custom($term_taxonomy_id = 0) {
 }
 
 /**
- * get_term_taxonomy_custom_keys() - Retrieve term custom field names
+ * Retrieve term custom field names
  *
  * @package Simple Taxonomy Meta
  *
@@ -396,7 +486,7 @@ function get_term_taxonomy_custom_keys( $term_taxonomy_id = 0 ) {
 }
 
 /**
- * get_term_taxonomy_custom_values() - Retrieve values for a custom term field
+ * Retrieve values for a custom term field
  *
  * @package Simple Taxonomy Meta
  *
@@ -410,7 +500,7 @@ function get_term_taxonomy_custom_values( $key = '', $term_taxonomy_id = 0 ) {
 }
 
 /**
- * get_term_taxonomy_id_from_meta() - Retrieve term taxonomy ID by meta_key/meta_value
+ * Retrieve term taxonomy ID by meta_key/meta_value
  *
  * @package Simple Taxonomy Meta
  *
@@ -433,7 +523,7 @@ function get_term_taxonomy_id_from_meta( $meta_key = '', $meta_value = '' ) {
 }
 
 /**
- * get_term_meta_by_key() - Allow to get meta datas for a specificied key.
+ * Allow to get meta datas for a specificied key.
  * 
  * @package Simple Taxonomy Meta
  *
