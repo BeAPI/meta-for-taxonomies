@@ -15,16 +15,16 @@ Add meta for any taxonomies. Meta is attached to taxonomy context and not terms,
 This plugin don't any interface on WordPress ! Only somes methods for developpers.
 
 This plugin propose many functions for terms :
-	add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '', $unique = false )
-	delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '')
-	get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = false )
-	update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value, $prev_value = '' )
+	* add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '', $unique = false )
+	* delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '')
+	* get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = false )
+	* update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value, $prev_value = '' )
 	
 And many others functions term taxonomy context :
-	add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '', $unique = false )
-	delete_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '')
-	get_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $single = false )
-	update_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key, $meta_value, $prev_value = '' )
+	* add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '', $unique = false )
+	* delete_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '')
+	* get_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $single = false )
+	* update_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key, $meta_value, $prev_value = '' )
 	
 And many others...
 	
