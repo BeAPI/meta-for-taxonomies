@@ -13,14 +13,14 @@ global $wpdb;
 $wpdb->termmeta = $wpdb->prefix . 'term_taxonomy_meta';
 
 // 2. Library
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.meta.php' );
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.meta.ext.php' );
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.meta.terms.php' );
+require( dirname(__FILE__) . '/inc/functions.meta.php' );
+require( dirname(__FILE__) . '/inc/functions.meta.ext.php' );
+require( dirname(__FILE__) . '/inc/functions.meta.terms.php' );
 
 // 3. Functions
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.hook.php' );
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.inc.php' );
-require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.tpl.php' );
+require( dirname(__FILE__) . '/inc/functions.hook.php' );
+require( dirname(__FILE__) . '/inc/functions.inc.php' );
+require( dirname(__FILE__) . '/inc/functions.tpl.php' );
 
 // 4. Meta API hook
 register_activation_hook( __FILE__, 'install_table_termmeta' );
