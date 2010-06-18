@@ -3,7 +3,7 @@
 Plugin Name: Meta for Taxonomies
 Plugin URI: http://www.beapi.fr
 Description: Add table for term taxonomy meta and some methods for use it. Inspiration from core post meta.
-Author: BeAPI
+Author: Be API
 Author URI: http://beapi.fr
 Version: 1.0.0
 */
@@ -14,6 +14,8 @@ $wpdb->termmeta = $wpdb->prefix . 'term_taxonomy_meta';
 
 // 2. Library
 require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.meta.php' );
+require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.meta.ext.php' );
+require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.meta.terms.php' );
 
 // 3. Functions
 require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'functions.hook.php' );
