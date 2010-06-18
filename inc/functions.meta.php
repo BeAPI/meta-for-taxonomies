@@ -12,7 +12,7 @@
  * @return bool {@internal Missing Description}}
  */
 function add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '', $unique = false ) {
-	return add_metadata( 'term', $term_taxonomy_id, $meta_key, $meta_value, $unique );
+	return add_metadata( 'term_taxonomy', $term_taxonomy_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -27,7 +27,7 @@ function add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_va
  * @return bool {@internal Missing Description}}
  */
 function delete_term_taxonomy_meta( $term_taxonomy_id = 0, $key = '', $value = '', $delete_all = false ) {
-	return delete_metadata( 'term', $term_taxonomy_id, $key, $value, $delete_all );
+	return delete_metadata( 'term_taxonomy', $term_taxonomy_id, $key, $value, $delete_all );
 }
 
 /**
@@ -42,7 +42,7 @@ function delete_term_taxonomy_meta( $term_taxonomy_id = 0, $key = '', $value = '
  * @return mixed {@internal Missing Description}}
  */
 function get_term_taxonomy_meta($term_taxonomy_id, $meta_key = '', $single = false) {
-	return get_metadata( 'term', $term_taxonomy_id, $meta_key, $single );
+	return get_metadata( 'term_taxonomy', $term_taxonomy_id, $meta_key, $single );
 }
 
 /**
@@ -59,7 +59,7 @@ function get_term_taxonomy_meta($term_taxonomy_id, $meta_key = '', $single = fal
  * @return bool {@internal Missing Description}}
  */
 function update_term_taxonomy_meta($term_taxonomy_id, $meta_key, $meta_value, $prev_value = '') {
-	return update_metadata( 'term', $term_taxonomy_id, $meta_key, $meta_value, $prev_value ); 
+	return update_metadata( 'term_taxonomy', $term_taxonomy_id, $meta_key, $meta_value, $prev_value ); 
 }
 
 /**
@@ -75,7 +75,7 @@ function update_term_taxonomy_meta($term_taxonomy_id, $meta_key, $meta_value, $p
  * @return bool|array Returns false if there is nothing to update or an array of metadata.
  */
 function update_termmeta_cache($term_taxonomy_ids) {
-	return update_meta_cache('term', $term_taxonomy_ids);
+	return update_meta_cache('term_taxonomy', $term_taxonomy_ids);
 }
 
 /**
