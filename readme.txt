@@ -4,7 +4,7 @@ Donate link: http://www.beapi.fr/donate/
 Tags: tags, taxonomies, custom taxonomies, termmeta, meta, term meta, taxonomy
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.1
+Stable tag: 1.1.2
 Add meta for any taxonomies. Meta is attached to taxonomy context and not terms, this way allow to have metas different for the same term on 2 different taxonomies.
 
 == Description ==
@@ -37,6 +37,8 @@ For full info go the [Meta for taxonomies](http://redmine.beapi.fr/projects/show
 
 == Changelog ==
 
+* 1.1.2
+	* Fix a fuckiiiing bug with the meta key... (bis)
 * 1.1.1
 	* Remove a conflict function with Simple Taxonomy
 * 1.1
