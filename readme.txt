@@ -3,9 +3,8 @@ Contributors: momo360modena
 Donate link: http://www.beapi.fr/donate/
 Tags: tags, taxonomies, custom taxonomies, termmeta, meta, term meta, taxonomy
 Requires at least: 3.0
-Tested up to: 3.0
-Stable tag: 1.0.0
-
+Tested up to: 3.0.1
+Stable tag: 1.1
 Add meta for any taxonomies. Meta is attached to taxonomy context and not terms, this way allow to have metas different for the same term on 2 different taxonomies.
 
 == Description ==
@@ -35,3 +34,10 @@ For full info go the [Meta for taxonomies](http://redmine.beapi.fr/projects/show
 1. Download, unzip and upload to your WordPress plugins directory
 2. Activate the plugin within you WordPress Administration Backend
 3. Develop your plugin for used it !
+
+== Changelog ==
+
+* 1.1
+	* Fix a fuckiiiing bug with the meta key...
+* 1.0.0
+	* Initial version
