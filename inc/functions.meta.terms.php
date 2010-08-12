@@ -87,6 +87,7 @@ function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = 
  * @author Amaury Balmer
  */
 function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value, $prev_value = '' ) {
+
 	// Taxonomy is valid ?
 	if ( !is_taxonomy($taxonomy) ) {
 		return false;

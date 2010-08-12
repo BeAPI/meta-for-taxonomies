@@ -10,7 +10,7 @@ Version: 1.0.0
 
 // 1. Setup table name for term taxonomy meta
 global $wpdb;
-$wpdb->termmeta = $wpdb->prefix . 'term_taxonomy_meta';
+$wpdb->term_taxonomy = $wpdb->prefix . 'term_taxonomy_meta';
 
 // 2. Library
 require( dirname(__FILE__) . '/inc/functions.meta.php' );

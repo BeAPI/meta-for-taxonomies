@@ -78,7 +78,7 @@ function get_term_taxonomy_id_from_meta( $meta_key = '', $meta_value = '' ) {
 	
 	$result = wp_cache_get( $key, 'term_meta' );
 	if ( false === $result ) {
-		$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxonomy_id FROM $wpdb->termmeta WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
+		$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxonomy_id FROM $wpdb->term_taxonomy WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
 		wp_cache_set( $key, $result, 'term_meta' );
 	}
 	

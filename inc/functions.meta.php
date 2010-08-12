@@ -12,7 +12,7 @@
  * @return bool {@internal Missing Description}}
  */
 function add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '', $unique = false ) {
-	return add_metadata( 'term_taxonomy', $term_taxonomy_id, $meta_key, $meta_value, $unique );
+	echo add_metadata( 'term_taxonomy', $term_taxonomy_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -155,7 +155,7 @@ function delete_term_meta_by_key( $term_meta_key = '' ) {
 	
 	global $wpdb;
 	
-	$term_taxonomy_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT term_taxonomy_id FROM $wpdb->termmeta WHERE meta_key = %s", $term_meta_key));
+	$term_taxonomy_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT term_taxonomy_id FROM $wpdb->term_taxonomy WHERE meta_key = %s", $term_meta_key));
 	if ( $term_taxonomy_ids ) {
 		$termmetaids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->termmeta WHERE meta_key = %s", $term_meta_key ) );
 		$in = implode( ',', array_fill(1, count($termmetaids), '%d'));

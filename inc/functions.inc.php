@@ -12,7 +12,7 @@ function install_table_termmeta() {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	
 	// Try to create the meta table
-	return maybe_create_table( $wpdb->termmeta, "CREATE TABLE " . $wpdb->termmeta . " (
+	return maybe_create_table( $wpdb->term_taxonomy, "CREATE TABLE " . $wpdb->termmeta . " (
 			`meta_id` int(20) NOT NULL auto_increment,
 			`term_taxonomy_id` INT( 20 ) NOT NULL ,
 			`meta_key` VARCHAR( 255 ) NOT NULL ,
