@@ -37,6 +37,8 @@ For full info go the [Meta for taxonomies](http://redmine.beapi.fr/projects/show
 
 == Changelog ==
 
+* 1.1.1
+	* Remove a conflict function with Simple Taxonomy
 * 1.1
 	* Fix a fuckiiiing bug with the meta key...
 * 1.0.0
