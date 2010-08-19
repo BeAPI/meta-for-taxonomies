@@ -71,10 +71,8 @@ function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id =
 			}
 		}
 	}
-	if( is_string( $meta_value ) )
-		return $before . apply_filters( 'st_get_term_meta', $meta_value, $meta_key, $term ) . $after;
 	
-	return apply_filters( 'st_get_term_meta', $meta_value, $meta_key, $term );
+	return $before . apply_filters( 'st_get_term_meta', $meta_value, $meta_key, $term ) . $after;
 }
 
 /**

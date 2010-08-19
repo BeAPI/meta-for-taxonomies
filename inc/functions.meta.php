@@ -97,11 +97,11 @@ function get_term_taxonomy_custom($term_taxonomy_id = 0) {
 		$term_taxonomy_id = (int) $id;
 
 	$term_taxonomy_id = (int) $term_taxonomy_id;
-
-	if ( ! wp_cache_get($term_taxonomy_id, 'term_meta') )
+	
+	if ( ! wp_cache_get($term_taxonomy_id, 'term_taxo_meta') )
 		update_termmeta_cache($term_taxonomy_id);
 
-	return wp_cache_get($term_taxonomy_id, 'term_meta');
+	return wp_cache_get($term_taxonomy_id, 'term_taxo_meta');
 }
 
 /**
@@ -165,7 +165,7 @@ function delete_term_meta_by_key( $term_meta_key = '' ) {
 		do_action( 'deleted_termmeta', $termmetaids );
 		
 		foreach ( $term_taxonomy_ids as $term_taxonomy_id )
-			wp_cache_delete($term_taxonomy_id, 'term_meta');
+			wp_cache_delete($term_taxonomy_id, 'term_taxo_meta');
 			
 		return true;
 	}
