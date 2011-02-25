@@ -78,7 +78,7 @@ function get_term_taxonomy_id_from_meta( $meta_key = '', $meta_value = '' ) {
 	
 	$result = wp_cache_get( $key, 'term_taxo_meta' );
 	if ( false === $result ) {
-		$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxonomy_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
+		$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
 		wp_cache_set( $key, $result, 'term_taxo_meta' );
 	}
 	
@@ -105,5 +105,19 @@ function get_term_taxo_by_key( $meta_key = '' ) {
 	}
 
 	return $result;
+}
+
+function get_term_id_from_meta( $taxonomy = '', $meta_key = '', $meta_value = '' ) {
+	$tt_id = get_term_taxonomy_id_from_meta( $meta_key, $meta_value );
+	if ( $tt_id != false ) {
+		return get_term_id_from_term_taxonomy_id( $taxonomy, $tt_id );
+	}
+	
+	return false;
+}
+
+function get_term_id_from_term_taxonomy_id ( $taxonomy = '', $term_taxonomy_id = 0 ) {
+	global $wpdb;
+	return $wpdb->get_var( $wpdb->prepare("SELECT term_id FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = %d AND taxonomy = %s", $term_taxonomy_id, $taxonomy) );
 }
 ?>
