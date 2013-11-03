@@ -12,7 +12,7 @@
  */
 function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '', $unique = false ) {
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -37,7 +37,7 @@ function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_valu
  */
 function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '') {
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -62,7 +62,7 @@ function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_v
  */
 function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = false ) {
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -87,9 +87,8 @@ function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = 
  * @author Amaury Balmer
  */
 function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value, $prev_value = '' ) {
-
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -112,7 +111,7 @@ function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value,
  */
 function get_term_custom( $taxonomy = '', $term_id = 0 ) {
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -135,7 +134,7 @@ function get_term_custom( $taxonomy = '', $term_id = 0 ) {
  */
 function get_term_custom_keys( $taxonomy = '', $term_id = 0 ) {
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -159,7 +158,7 @@ function get_term_custom_keys( $taxonomy = '', $term_id = 0 ) {
  */
 function get_term_custom_values( $taxonomy = '', $term_id = 0, $key = '' ) {
 	// Taxonomy is valid ?
-	if ( !is_taxonomy($taxonomy) ) {
+	if ( !taxonomy_exists($taxonomy) ) {
 		return false;
 	}
 	
@@ -171,4 +170,3 @@ function get_term_custom_values( $taxonomy = '', $term_id = 0, $key = '' ) {
 
 	return get_term_taxonomy_custom_values( $key, $term->term_taxonomy_id );
 }
-?>

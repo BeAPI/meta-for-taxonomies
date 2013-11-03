@@ -16,9 +16,9 @@ function delete_term_taxo_by_key_and_value($key = '', $value = '') {
 
 	// Meta exist ?
 	if ( empty( $value ) )
-		$term_taxonomy_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT term_taxonomy_id FROM $wpdb->term_taxometa WHERE meta_key = %s", $key ) );
+		$term_taxonomy_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s", $key ) );
 	else
-		$term_taxonomy_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT term_taxonomy_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $key, $value ) );
+		$term_taxonomy_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $key, $value ) );
 	
 	if ( $term_taxonomy_ids ) {
 		// Get term id to delete
@@ -54,13 +54,12 @@ function delete_term_taxo_by_key_and_value($key = '', $value = '') {
  */
 function delete_term_taxo_by_term_taxonomy_id( $term_taxonomy_id = 0 ) {
 	global $wpdb;
-	if ( $wpdb->query($wpdb->prepare("DELETE FROM $wpdb->term_taxometa WHERE term_taxonomy_id = %s", (int) $term_taxonomy_id)) ) {
+	if ( $wpdb->query($wpdb->prepare("DELETE FROM $wpdb->term_taxometa WHERE term_taxo_id = %s", (int) $term_taxonomy_id)) ) {
 		wp_cache_delete($term_taxonomy_id, 'term_taxo_meta');
 		return true;
 	}
 	return false;
 }
-
 
 /**
  * Retrieve term taxonomy ID by meta_key/meta_value
@@ -120,4 +119,3 @@ function get_term_id_from_term_taxonomy_id ( $taxonomy = '', $term_taxonomy_id =
 	global $wpdb;
 	return $wpdb->get_var( $wpdb->prepare("SELECT term_id FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = %d AND taxonomy = %s", $term_taxonomy_id, $taxonomy) );
 }
-?>

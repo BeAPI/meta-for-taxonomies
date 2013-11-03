@@ -27,4 +27,3 @@ function install_table_termmeta() {
 			KEY `meta_key` (`meta_key`)
 		) $charset_collate;" );
 }
-?>

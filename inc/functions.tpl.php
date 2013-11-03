@@ -15,7 +15,7 @@ if ( !function_exists('get_current_term') ) :
 		// Get current term
 		$term = wp_cache_get( $key, 'terms' );
 		if ( $term == false || $term == null ) {
-			$term = get_term_by( 'slug', get_query_var('term'), get_query_var('taxonomy'), OBJECT, 'display' );
+			$term = get_term_by( 'slug', get_query_var('term'), get_query_var('taxonomy'), OBJECT );
 			if ( $term == false ) {
 				return false;
 			}
@@ -41,7 +41,7 @@ function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id =
 		return '';
 	
 	$term = false;
-	if ( $term_id != null && !empty($taxonomy) && is_taxonomy($taxonomy) ) {
+	if ( $term_id != null && !empty($taxonomy) && taxonomy_exists($taxonomy) ) {
 		// Manual term with param ?
 		$term = get_term( $term_id, $taxonomy );
 	}
@@ -91,4 +91,3 @@ function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id =
 function st_term_meta( $meta_key = '', $before = '', $after = '', $term_id = null, $taxonomy = '', $filters = array() ) {
 	echo st_get_term_meta( $meta_key, $before, $after, $term_id, $taxonomy, $filters );
 }
-?>

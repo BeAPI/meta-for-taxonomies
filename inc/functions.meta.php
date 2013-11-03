@@ -120,6 +120,8 @@ function get_term_taxonomy_custom_keys( $term_taxonomy_id = 0 ) {
 
 	if ( $keys = array_keys($custom) )
 		return $keys;
+		
+	return false;
 }
 
 /**
@@ -155,7 +157,7 @@ function delete_term_meta_by_key( $term_meta_key = '' ) {
 	
 	global $wpdb;
 	
-	$term_taxonomy_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT term_taxonomy_id FROM $wpdb->term_taxometa WHERE meta_key = %s", $term_meta_key));
+	$term_taxonomy_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s", $term_meta_key));
 	if ( $term_taxonomy_ids ) {
 		$termmetaids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->term_taxometa WHERE meta_key = %s", $term_meta_key ) );
 		$in = implode( ',', array_fill(1, count($termmetaids), '%d'));
@@ -171,4 +173,3 @@ function delete_term_meta_by_key( $term_meta_key = '' ) {
 	}
 	return false;
 }
-?>
