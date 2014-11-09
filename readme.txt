@@ -43,6 +43,9 @@ For full info go the [Meta for taxonomies](https://github.com/herewithme/meta-fo
 
 == Changelog ==
 
+* 1.2.1
+	* Compat with WP 4.0.x
+	* Just improve description...
 * 1.2
 	* Broken MAJ - No upgrade script available
 	* Change table name for allow multisite switching...
