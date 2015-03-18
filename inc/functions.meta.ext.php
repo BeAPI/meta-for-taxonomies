@@ -35,7 +35,7 @@ function delete_term_taxo_by_key_and_value($key = '', $value = '') {
 		
 		// Delete cache
 		foreach ( $term_taxonomy_ids as $term_taxonomy_id )
-			wp_cache_delete($term_taxonomy_id, 'term_taxometa');
+			wp_cache_delete($term_taxonomy_id, 'term_taxo_meta');
 		
 		return true;
 	}
@@ -55,7 +55,7 @@ function delete_term_taxo_by_key_and_value($key = '', $value = '') {
 function delete_term_taxo_by_term_taxonomy_id( $term_taxonomy_id = 0 ) {
 	global $wpdb;
 	if ( $wpdb->query($wpdb->prepare("DELETE FROM $wpdb->term_taxometa WHERE term_taxo_id = %s", (int) $term_taxonomy_id)) ) {
-		wp_cache_delete($term_taxonomy_id, 'term_taxometa');
+		wp_cache_delete($term_taxonomy_id, 'term_taxo_meta');
 		return true;
 	}
 	return false;
@@ -75,10 +75,10 @@ function get_term_taxonomy_id_from_meta( $meta_key = '', $meta_value = '' ) {
 	
 	$key = md5( $meta_key . $meta_value );
 	
-	$result = wp_cache_get( $key, 'term_taxometa' );
+	$result = wp_cache_get( $key, 'term_taxo_meta' );
 	if ( false === $result ) {
 		$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
-		wp_cache_set( $key, $result, 'term_taxometa' );
+		wp_cache_set( $key, $result, 'term_taxo_meta' );
 	}
 	
 	return $result;
@@ -97,10 +97,10 @@ function get_term_taxo_by_key( $meta_key = '' ) {
 	
 	$key = md5( 'key-'.$meta_key );
 	
-	$result = wp_cache_get( $key, 'term_taxo' );
+	$result = wp_cache_get( $key, 'term_taxo_meta' );
 	if ( false === $result ) {
 	 	$result = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->term_taxometa WHERE meta_key = %s", $meta_key ) );
-		wp_cache_set( $key, $result, 'term_taxometa' );
+		wp_cache_set( $key, $result, 'term_taxo_meta' );
 	}
 
 	return $result;
