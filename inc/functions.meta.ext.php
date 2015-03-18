@@ -68,16 +68,22 @@ function delete_term_taxo_by_term_taxonomy_id( $term_taxonomy_id = 0 ) {
  *
  * @param string $meta_key meta key
  * @param string $meta_value meta value
+ * @param string $taxonomy meta value (optionnal)
  * @return mixed {@internal Missing Description}}
  */
-function get_term_taxonomy_id_from_meta( $meta_key = '', $meta_value = '' ) {
+function get_term_taxonomy_id_from_meta( $meta_key = '', $meta_value = '', $taxonomy = false ) {
 	global $wpdb;
 	
-	$key = md5( $meta_key . $meta_value );
+	$key = md5( $meta_key . $meta_value . $taxonomy );
 	
 	$result = wp_cache_get( $key, 'term_taxo_meta' );
 	if ( false === $result ) {
-		$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
+		if( $taxonomy !== false ) {
+			$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxo_id FROM $wpdb->term_taxometa INNER JOIN $wpdb->term_taxonomy ON term_taxo_id = term_taxonomy_id WHERE meta_key = %s AND meta_value = %s AND taxonomy = %s", $meta_key, $meta_value, $taxonomy ) );
+		} else {
+			$result = (int) $wpdb->get_var( $wpdb->prepare("SELECT term_taxo_id FROM $wpdb->term_taxometa WHERE meta_key = %s AND meta_value = %s", $meta_key, $meta_value ) );
+		}
+
 		wp_cache_set( $key, $result, 'term_taxo_meta' );
 	}
 	
@@ -107,7 +113,7 @@ function get_term_taxo_by_key( $meta_key = '' ) {
 }
 
 function get_term_id_from_meta( $taxonomy = '', $meta_key = '', $meta_value = '' ) {
-	$tt_id = get_term_taxonomy_id_from_meta( $meta_key, $meta_value );
+	$tt_id = get_term_taxonomy_id_from_meta( $meta_key, $meta_value, $taxonomy );
 	if ( $tt_id != false ) {
 		return get_term_id_from_term_taxonomy_id( $taxonomy, $tt_id );
 	}
