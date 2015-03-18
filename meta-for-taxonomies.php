@@ -5,7 +5,10 @@ Plugin URI: http://www.beapi.fr
 Description: Add table for term taxonomy meta and some methods for use it. Inspiration from core post meta.
 Author: Be API
 Author URI: http://beapi.fr
-Version: 1.2.1
+Version: 1.2.2
+
+TODO:
+	Implement purge cache of term metadata on follow hook : clean_term_cache
 */
 
 // 1. Setup table name for term taxonomy meta
