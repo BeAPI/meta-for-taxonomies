@@ -33,7 +33,7 @@ function delete_term_taxo_by_key_and_value( $key = '', $value = '' ) {
 		$in = implode( ',', array_fill( 1, count( $meta_ids ), '%d' ) );
 
 		do_action( 'delete_termmeta', $meta_ids );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->term_taxometa WHERE meta_id IN ($in)", $meta_ids ) );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->termmeta WHERE meta_id IN ($in)", $meta_ids ) );
 		do_action( 'deleted_termmeta', $meta_ids );
 
 		// Delete cache
@@ -59,7 +59,7 @@ function delete_term_taxo_by_key_and_value( $key = '', $value = '' ) {
  */
 function delete_term_taxo_by_term_taxonomy_id( $term_taxonomy_id = 0 ) {
 	global $wpdb;
-	if ( $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->termmeta WHERE term_taxo_id = %s", (int) $term_taxonomy_id ) ) ) {
+	if ( $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->termmeta WHERE term_id = %s", (int) $term_taxonomy_id ) ) ) {
 		wp_cache_delete( $term_taxonomy_id, 'term_meta' );
 
 		return true;
