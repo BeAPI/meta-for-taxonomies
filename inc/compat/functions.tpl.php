@@ -37,29 +37,31 @@ endif;
  * @param (array) $filters
  */
 function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id = null, $taxonomy = '', $filters = array() ) {
-	if ( empty($meta_key) || $meta_key == false )
+	if ( empty($meta_key) || false === $meta_key ) {
 		return '';
+	}
+
 	
 	$term = false;
-	if ( $term_id != null && !empty($taxonomy) && taxonomy_exists($taxonomy) ) {
+	if ( null !== $term_id ) {
 		// Manual term with param ?
-		$term = get_term( $term_id, $taxonomy );
+		$term = get_term( $term_id );
 	}
 		
-	if ( $term == false || is_wp_error($term) || $term == null ) {
+	if ( false === $term || is_wp_error($term) || null === $term ) {
 		// Get current term from WP_Query
 		$term = get_current_term();
 		if ( $term == false )
 			return '';
 	}
 	
-	if ( (int) $term->term_taxonomy_id == 0 ) { // Last check if term is valid.
+	if ( 0 === (int) $term->term_id ) { // Last check if term is valid.
 		return '';
 	}
 	
-	$meta_value = get_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, true );
+	$meta_value = get_term_meta( $term->term_id, $meta_key, true );
 	$meta_value = maybe_unserialize($meta_value);
-	if ( $meta_value == false || is_wp_error($meta_value) || empty($meta_value) ) {
+	if ( false === $meta_value || is_wp_error($meta_value) || empty($meta_value) ) {
 		return '';
 	}	
 	
