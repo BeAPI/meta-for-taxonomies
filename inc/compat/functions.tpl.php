@@ -28,15 +28,22 @@ endif;
 
 /**
  * Return the value of a term meta. Support before and after wrapper. Use WP_Query term by default, with parameters for specificy a custom term.
- * 
- * @param (string) $meta_key
- * @param (string) $before
- * @param (string) $after
- * @param (integer) $term_id
- * @param (string) $taxonomy
- * @param (array) $filters
+ *
+ * @param string $meta_key
+ * @param string $before
+ * @param string $after
+ * @param null $term_id
+ * @param string $taxonomy deprecated since 1.3.0
+ * @param array $filters
+ *
+ * @return mixed|string|void
  */
 function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id = null, $taxonomy = '', $filters = array() ) {
+
+	if ( ! empty( $taxonomy ) ) {
+		_deprecated_argument( 'st_get_term_meta', '1.3.0', sprintf( __( 'The %s parameter is no longer needed.' ), 'taxonomy' ) );
+	}
+
 	if ( empty($meta_key) || false === $meta_key ) {
 		return '';
 	}
@@ -47,11 +54,11 @@ function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id =
 		// Manual term with param ?
 		$term = get_term( $term_id );
 	}
-		
+
 	if ( false === $term || is_wp_error($term) || null === $term ) {
 		// Get current term from WP_Query
 		$term = get_current_term();
-		if ( $term == false )
+		if ( false === $term )
 			return '';
 	}
 	
@@ -82,14 +89,19 @@ function st_get_term_meta( $meta_key = '', $before = '', $after = '', $term_id =
 
 /**
  * Display an term term. Just make an echo of st_get_term_meta().
- * 
- * @param (string) $meta_key
- * @param (string) $before
- * @param (string) $after
- * @param (integer) $term_id
- * @param (string) $taxonomy
- * @param (array) $filters
+ *
+ * @param string $meta_key
+ * @param string $before
+ * @param string $after
+ * @param null $term_id
+ * @param string $taxonomy deprecated since 1.3.0
+ * @param array $filters
+ *
  */
 function st_term_meta( $meta_key = '', $before = '', $after = '', $term_id = null, $taxonomy = '', $filters = array() ) {
+	if ( ! empty( $taxonomy ) ) {
+		_deprecated_argument( 'st_get_term_meta', '1.3.0', sprintf( __( 'The %s parameter is no longer needed.' ), 'taxonomy' ) );
+	}
+
 	echo st_get_term_meta( $meta_key, $before, $after, $term_id, $taxonomy, $filters );
 }
