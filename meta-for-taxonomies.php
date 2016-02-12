@@ -11,15 +11,15 @@ TODO:
 	Implement purge cache of term metadata on follow hook : clean_term_cache
 */
 
-// 1. Setup table name for term taxonomy meta
-global $wpdb;
-$wpdb->tables[]      = 'term_taxometa';
-$wpdb->term_taxometa = $wpdb->prefix . 'term_taxometa';
-
 /**
  * Before 4.4
  */
 if ( ! function_exists( 'get_term_meta' ) ) {
+
+	// 1. Setup table name for term taxonomy meta
+	global $wpdb;
+	$wpdb->tables[]      = 'term_taxometa';
+	$wpdb->term_taxometa = $wpdb->prefix . 'term_taxometa';
 
 	// 2. Library
 	require_once( dirname( __FILE__ ) . '/inc/default/functions.meta.php' );
