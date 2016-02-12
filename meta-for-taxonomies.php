@@ -19,7 +19,7 @@ $wpdb->term_taxometa = $wpdb->prefix . 'term_taxometa';
 /**
  * Before 4.4
  */
-if ( function_exists( 'get_term_meta' ) ) {
+if ( ! function_exists( 'get_term_meta' ) ) {
 
 	// 2. Library
 	require_once( dirname(__FILE__) . '/inc/default/functions.meta.php' );
@@ -34,17 +34,16 @@ if ( function_exists( 'get_term_meta' ) ) {
 	/**
 	 * After 4.4
 	 */
-
 	// 2. Library
 	require_once( dirname(__FILE__) . '/inc/compat/functions.meta.php' );
 	require_once( dirname(__FILE__) . '/inc/compat/functions.meta.ext.php' );
 	require_once( dirname(__FILE__) . '/inc/compat/functions.meta.terms.php' );
 
 	// 3. Functions
-	require_once( dirname(__FILE__) . '/inc/compat/functions.hook.php' );
-	require_once( dirname(__FILE__) . '/inc/compat/functions.inc.php' );
 	require_once( dirname(__FILE__) . '/inc/compat/functions.tpl.php' );
+
 }
+
 
 // 4. Meta API hook
 register_activation_hook( __FILE__, 'install_table_termmeta' );
