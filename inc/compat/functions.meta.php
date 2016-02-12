@@ -12,7 +12,7 @@
  * @return bool {@internal Missing Description}}
  */
 function add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_value = '', $unique = false ) {
-	return add_metadata( 'term', $term_taxonomy_id, $meta_key, $meta_value, $unique );
+	return add_term_meta( $term_taxonomy_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -27,7 +27,7 @@ function add_term_taxonomy_meta( $term_taxonomy_id = 0, $meta_key = '', $meta_va
  * @return bool {@internal Missing Description}}
  */
 function delete_term_taxonomy_meta( $term_taxonomy_id = 0, $key = '', $value = '', $delete_all = false ) {
-	return delete_metadata( 'term', $term_taxonomy_id, $key, $value, $delete_all );
+	return delete_term_meta( $term_taxonomy_id, $key, $value, $delete_all );
 }
 
 /**
@@ -42,7 +42,7 @@ function delete_term_taxonomy_meta( $term_taxonomy_id = 0, $key = '', $value = '
  * @return mixed {@internal Missing Description}}
  */
 function get_term_taxonomy_meta($term_taxonomy_id, $meta_key = '', $single = false) {
-	return get_metadata( 'term', $term_taxonomy_id, $meta_key, $single );
+	return get_term_meta( $term_taxonomy_id, $meta_key, $single );
 }
 
 /**
@@ -58,14 +58,10 @@ function get_term_taxonomy_meta($term_taxonomy_id, $meta_key = '', $single = fal
  * @param mixed $prev_value previous value (for differentiating between meta fields with the same key and term ID)
  * @return bool {@internal Missing Description}}
  */
-function update_term_taxonomy_meta($term_taxonomy_id, $meta_key, $meta_value, $prev_value = '') {
-	return update_metadata( 'term_taxo', $term_taxonomy_id, $meta_key, $meta_value, $prev_value ); 
+function update_term_taxonomy_meta( $term_taxonomy_id, $meta_key, $meta_value, $prev_value = '' ) {
+	return update_term_meta( $term_taxonomy_id, $meta_key, $meta_value, $prev_value );
 }
-/*
-function update_termmeta_cache($term_taxonomy_ids) {
-	return update_meta_cache('term_taxo', $term_taxonomy_ids);
-}
-*/
+
 /**
  * Retrieve term custom fields
  *
