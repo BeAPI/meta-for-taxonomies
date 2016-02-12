@@ -61,11 +61,11 @@ function get_term_taxonomy_meta($term_taxonomy_id, $meta_key = '', $single = fal
 function update_term_taxonomy_meta($term_taxonomy_id, $meta_key, $meta_value, $prev_value = '') {
 	return update_metadata( 'term_taxo', $term_taxonomy_id, $meta_key, $meta_value, $prev_value ); 
 }
-/*
+
 function update_termmeta_cache($term_taxonomy_ids) {
 	return update_meta_cache('term_taxo', $term_taxonomy_ids);
 }
-*/
+
 /**
  * Retrieve term custom fields
  *

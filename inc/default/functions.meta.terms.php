@@ -10,7 +10,6 @@
  * @return boolean
  * @author Amaury Balmer
  */
-/*
 function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '', $unique = false ) {
 	// Taxonomy is valid ?
 	if ( !taxonomy_exists($taxonomy) ) {
@@ -24,7 +23,7 @@ function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_valu
 	}
 	
 	return add_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $meta_value, $unique );
-}*/
+}
 
 /**
  * Delete term meta for term
@@ -36,7 +35,6 @@ function add_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_valu
  * @return boolean
  * @author Amaury Balmer
  */
-/*
 function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_value = '') {
 	// Taxonomy is valid ?
 	if ( !taxonomy_exists($taxonomy) ) {
@@ -50,7 +48,7 @@ function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_v
 	}
 	
 	return delete_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $meta_value );
-}*/
+}
 
 /**
  * Get a term meta field
@@ -62,7 +60,6 @@ function delete_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $meta_v
  * @return boolean
  * @author Amaury Balmer
  */
-/*
 function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = false ) {
 	// Taxonomy is valid ?
 	if ( !taxonomy_exists($taxonomy) ) {
@@ -76,7 +73,7 @@ function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = 
 	}
 	
 	return get_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $single );
-}*/
+}
 
 /**
  * Update a term meta field
@@ -89,7 +86,6 @@ function get_term_meta( $taxonomy = '', $term_id = 0, $meta_key = '', $single = 
  * @return boolean
  * @author Amaury Balmer
  */
-/*
 function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value, $prev_value = '' ) {
 	// Taxonomy is valid ?
 	if ( !taxonomy_exists($taxonomy) ) {
@@ -103,7 +99,7 @@ function update_term_meta( $taxonomy = '', $term_id = 0, $meta_key, $meta_value,
 	}
 	
 	return update_term_taxonomy_meta( $term->term_taxonomy_id, $meta_key, $meta_value, $prev_value );
-}*/
+}
 
 /**
  * Get a term meta field
