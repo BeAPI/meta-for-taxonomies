@@ -13,7 +13,7 @@ TODO:
 
 // 1. Setup table name for term taxonomy meta
 global $wpdb;
-$wpdb->tables[] = 'term_taxometa';
+$wpdb->tables[]      = 'term_taxometa';
 $wpdb->term_taxometa = $wpdb->prefix . 'term_taxometa';
 
 /**
@@ -22,29 +22,30 @@ $wpdb->term_taxometa = $wpdb->prefix . 'term_taxometa';
 if ( ! function_exists( 'get_term_meta' ) ) {
 
 	// 2. Library
-	require_once( dirname(__FILE__) . '/inc/default/functions.meta.php' );
-	require_once( dirname(__FILE__) . '/inc/default/functions.meta.ext.php' );
-	require_once( dirname(__FILE__) . '/inc/default/functions.meta.terms.php' );
+	require_once( dirname( __FILE__ ) . '/inc/default/functions.meta.php' );
+	require_once( dirname( __FILE__ ) . '/inc/default/functions.meta.ext.php' );
+	require_once( dirname( __FILE__ ) . '/inc/default/functions.meta.terms.php' );
 
 	// 3. Functions
-	require_once( dirname(__FILE__) . '/inc/default/functions.hook.php' );
-	require_once( dirname(__FILE__) . '/inc/default/functions.inc.php' );
-	require_once( dirname(__FILE__) . '/inc/default/functions.tpl.php' );
+	require_once( dirname( __FILE__ ) . '/inc/default/functions.hook.php' );
+	require_once( dirname( __FILE__ ) . '/inc/default/functions.inc.php' );
+	require_once( dirname( __FILE__ ) . '/inc/default/functions.tpl.php' );
+
+	// 4. Meta API hook
+	register_activation_hook( __FILE__, 'install_table_termmeta' );
+	
+	add_action( 'delete_term', 'remove_meta_during_delete', 10, 3 );
+
 } else {
 	/**
 	 * After 4.4
 	 */
 	// 2. Library
-	require_once( dirname(__FILE__) . '/inc/compat/functions.meta.php' );
-	require_once( dirname(__FILE__) . '/inc/compat/functions.meta.ext.php' );
-	require_once( dirname(__FILE__) . '/inc/compat/functions.meta.terms.php' );
+	require_once( dirname( __FILE__ ) . '/inc/compat/functions.meta.php' );
+	require_once( dirname( __FILE__ ) . '/inc/compat/functions.meta.ext.php' );
+	require_once( dirname( __FILE__ ) . '/inc/compat/functions.meta.terms.php' );
 
 	// 3. Functions
-	require_once( dirname(__FILE__) . '/inc/compat/functions.tpl.php' );
+	require_once( dirname( __FILE__ ) . '/inc/compat/functions.tpl.php' );
 
 }
-
-
-// 4. Meta API hook
-register_activation_hook( __FILE__, 'install_table_termmeta' );
-add_action ( 'delete_term', 'remove_meta_during_delete', 10, 3 );
