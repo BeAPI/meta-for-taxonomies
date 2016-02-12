@@ -4,6 +4,7 @@
  *
  * @param string $taxonomy deprecated since 1.3.0
  * @param integer $term_id
+ *
  * @return boolean
  * @author Amaury Balmer
  */
@@ -15,7 +16,7 @@ function get_term_custom( $taxonomy = '', $term_id = 0 ) {
 
 	// Term ID exist for this taxonomy ?
 	$term = get_term( (int) $term_id );
-	if ( false === $term || is_wp_error($term) ) {
+	if ( false === $term || is_wp_error( $term ) ) {
 		return false;
 	}
 
@@ -40,7 +41,7 @@ function get_term_custom_keys( $taxonomy = '', $term_id = 0 ) {
 
 	// Term ID exist for this taxonomy ?
 	$term = get_term( (int) $term_id );
-	if ( false === $term || is_wp_error($term) ) {
+	if ( false === $term || is_wp_error( $term ) ) {
 		return false;
 	}
 
@@ -66,7 +67,7 @@ function get_term_custom_values( $taxonomy = '', $term_id = 0, $key = '' ) {
 
 	// Term ID exist for this taxonomy ?
 	$term = get_term( (int) $term_id );
-	if ( false === $term || is_wp_error($term) ) {
+	if ( false === $term || is_wp_error( $term ) ) {
 		return false;
 	}
 
