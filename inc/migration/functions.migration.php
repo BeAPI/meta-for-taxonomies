@@ -33,13 +33,6 @@ function _mft_batch_migrate_terms_metas() {
 	// Update the lock, as by this point we've definitely got a lock, just need to fire the actions.
 	update_option( $lock_name, time() );
 
-
-	/**
-	 * 1) Recuperer les 10 prochain term metas avec le nouveau t_id
-	 * 2) insérer la donnée dans la nouvelle table
-	 * 3) supprimer la donnée de l'ancienne table (delete_metadata)
-	 */
-
 	// Get a list of shared terms (those with more than one associated row in term_taxonomy).
 	$terms_metas = $wpdb->get_results(
 		"SELECT ttm.meta_id, tt.taxonomy, tt.term_id, ttm.meta_key, ttm.meta_value
