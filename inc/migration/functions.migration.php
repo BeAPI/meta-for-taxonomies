@@ -84,13 +84,10 @@ function _mft_batch_migrate_terms_metas() {
 	$ids = array_filter( array_map( 'absint', wp_list_pluck( $terms_metas, 'meta_id' ) ) );
 
 	$wpdb->query(
-		$wpdb->prepare(
-			"
-			DELETE FROM {$wpdb->term_taxometa}
-			WHERE meta_id IN ( %s )
-			",
-			implode( ',', $ids )
-		)
+		"
+		DELETE FROM {$wpdb->term_taxometa}
+		WHERE meta_id IN ({$ids})
+		"
 	);
 
 	delete_option( $lock_name );
