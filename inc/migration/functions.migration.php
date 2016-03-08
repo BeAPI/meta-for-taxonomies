@@ -23,7 +23,7 @@ function _mft_batch_migrate_terms_metas() {
 
 		// Bail if we were unable to create a lock, or if the existing lock is still valid.
 		if ( ! $lock_result || ( $lock_result > ( time() - HOUR_IN_SECONDS ) ) ) {
-			wp_schedule_single_event( time() + ( 5 * MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
+			wp_schedule_single_event( time() + ( MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
 
 			return;
 		}
@@ -39,7 +39,7 @@ function _mft_batch_migrate_terms_metas() {
 		 INNER JOIN {$wpdb->term_taxonomy} tt
 		 ON tt.term_taxonomy_id = ttm.term_taxo_id
 		 ORDER BY ttm.meta_id
-		 LIMIT 50;"
+		 LIMIT 100;"
 	);
 
 	// No more terms, we're done here.
@@ -50,7 +50,7 @@ function _mft_batch_migrate_terms_metas() {
 	}
 
 	// Terms metas found? We'll need to run this script again.
-	wp_schedule_single_event( time() + ( 2 * MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
+	wp_schedule_single_event( time() + ( MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
 
 	$failed_transactions = get_option( 'mft_migrate_fails', array() );
 	$previous_failed_transactions_count = count( $failed_transactions );

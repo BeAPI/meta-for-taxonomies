@@ -43,6 +43,7 @@ if ( ! function_exists( 'get_term_meta' ) ) {
 	// 1. Migration tools
 	require_once( dirname( __FILE__ ) . '/inc/migration/migration.php' );
 	require_once( dirname( __FILE__ ) . '/inc/migration/functions.migration.php' );
+	require_once( dirname( __FILE__ ) . '/inc/migration/wp-cli.php' );
 
 	// 2. Library
 	require_once( dirname( __FILE__ ) . '/inc/compat/functions.meta.php' );
