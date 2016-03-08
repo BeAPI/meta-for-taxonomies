@@ -8,7 +8,6 @@ add_action( 'mft_migrate_term_metas_batch', '_mft_batch_migrate_terms_metas' );
  * @author Clément Boirie
  */
 function _mft_batch_migrate_terms_metas() {
-
 	// Ensure our table is register
 	_mft_maybe_register_taxometa_table();
 
@@ -40,7 +39,7 @@ function _mft_batch_migrate_terms_metas() {
 		 INNER JOIN {$wpdb->term_taxonomy} tt
 		 ON tt.term_taxonomy_id = ttm.term_taxo_id
 		 ORDER BY ttm.meta_id
-		 LIMIT 10;"
+		 LIMIT 50;"
 	);
 
 	// No more terms, we're done here.
@@ -59,7 +58,7 @@ function _mft_batch_migrate_terms_metas() {
 	// Insert metas to the wordpress metas table
 	foreach( $terms_metas as $meta ) {
 
-		$update = update_term_meta( $meta->taxonomy, $meta->term_id, $meta->meta_key, $meta->meta_value );
+		$update = update_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
 
 		// If something went wrong save the term metas data and continue
 		if ( is_wp_error( $update ) || false === $update ) {
@@ -81,7 +80,7 @@ function _mft_batch_migrate_terms_metas() {
 	}
 
 	// Build an array of old meta ids and delete them
-	$ids = array_filter( array_map( 'absint', wp_list_pluck( $terms_metas, 'meta_id' ) ) );
+	$ids = implode( ',', array_filter( array_map( 'absint', wp_list_pluck( $terms_metas, 'meta_id' ) ) ) );
 
 	$wpdb->query(
 		"
