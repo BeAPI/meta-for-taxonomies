@@ -72,7 +72,7 @@ function _mft_migrate_terms( $terms_meta ) {
 	// Insert metas to the wordpress metas table
 	foreach( $terms_meta as $meta ) {
 
-		$update = update_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
+		$update = add_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
 
 		// If something went wrong save the term metas data and continue
 		if ( is_wp_error( $update ) || false === $update ) {
