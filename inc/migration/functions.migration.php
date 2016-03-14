@@ -33,14 +33,10 @@ function _mft_batch_migrate_terms_metas() {
 	update_option( $lock_name, time() );
 
 	// Get a list of shared terms (those with more than one associated row in term_taxonomy).
-	$terms_metas = $wpdb->get_results(
-		"SELECT ttm.meta_id, tt.taxonomy, tt.term_id, ttm.meta_key, ttm.meta_value
-		 FROM {$wpdb->term_taxometa} ttm
-		 INNER JOIN {$wpdb->term_taxonomy} tt
-		 ON tt.term_taxonomy_id = ttm.term_taxo_id
-		 ORDER BY ttm.meta_id
-		 LIMIT 100;"
-	);
+	$terms_metas = _mft_migrate_get_terms();
+
+	// Migrate the terms
+	_mft_migrate_terms( $terms_metas );
 
 	// No more terms, we're done here.
 	if ( ! $terms_metas ) {
@@ -52,11 +48,29 @@ function _mft_batch_migrate_terms_metas() {
 	// Terms metas found? We'll need to run this script again.
 	wp_schedule_single_event( time() + ( MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
 
+	delete_option( $lock_name );
+}
+
+/**
+ * Migrate the terms meta given
+ *
+ * @param array $terms_meta
+ *
+ * @return array|mixed|void
+ */
+function _mft_migrate_terms( $terms_meta ) {
+	global $wpdb;
+
+	if( empty( $terms_meta ) ) {
+		return array( 'failed' => array(), 'deleted' => 0 );
+	}
+
 	$failed_transactions = get_option( 'mft_migrate_fails', array() );
 	$previous_failed_transactions_count = count( $failed_transactions );
+	$deleted = 0;
 
 	// Insert metas to the wordpress metas table
-	foreach( $terms_metas as $meta ) {
+	foreach( $terms_meta as $meta ) {
 
 		$update = update_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
 
@@ -71,6 +85,8 @@ function _mft_batch_migrate_terms_metas() {
 			);
 
 			$failed_transactions[] = $oops;
+		} else {
+			$deleted += $wpdb->delete( $wpdb->term_taxometa, [ 'meta_id' => $meta->meta_id ], [ '%d' ] );
 		}
 	}
 
@@ -79,17 +95,29 @@ function _mft_batch_migrate_terms_metas() {
 		update_option( 'mft_migrate_fails', $failed_transactions );
 	}
 
-	// Build an array of old meta ids and delete them
-	$ids = implode( ',', array_filter( array_map( 'absint', wp_list_pluck( $terms_metas, 'meta_id' ) ) ) );
+	return array( 'failed' => $failed_transactions, 'deleted' => $deleted );
+}
 
-	$wpdb->query(
-		"
-		DELETE FROM {$wpdb->term_taxometa}
-		WHERE meta_id IN ({$ids})
-		"
+/**
+ * Get all the terms to migrate
+ *
+ * @param string $limit 100 next by default
+ *
+ * @return array|null|object
+ */
+function _mft_migrate_get_terms( $limit = 'LIMIT 100' ) {
+	global $wpdb;
+
+	$limit = esc_sql( $limit );
+
+	return $wpdb->get_results(
+		"SELECT ttm.meta_id, tt.taxonomy, tt.term_id, ttm.meta_key, ttm.meta_value
+		 FROM {$wpdb->term_taxometa} ttm
+		 INNER JOIN {$wpdb->term_taxonomy} tt
+		 ON tt.term_taxonomy_id = ttm.term_taxo_id
+		 ORDER BY ttm.meta_id
+		 $limit;"
 	);
-
-	delete_option( $lock_name );
 }
 
 /**
