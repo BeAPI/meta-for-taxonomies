@@ -108,6 +108,8 @@ function _mft_migrate_terms( $terms_meta ) {
 function _mft_migrate_get_terms( $limit = 'LIMIT 100' ) {
 	global $wpdb;
 
+	_mft_maybe_register_taxometa_table();
+
 	$limit = esc_sql( $limit );
 
 	return $wpdb->get_results(
@@ -117,6 +119,17 @@ function _mft_migrate_get_terms( $limit = 'LIMIT 100' ) {
 		 ON tt.term_taxonomy_id = ttm.term_taxo_id
 		 ORDER BY ttm.meta_id
 		 $limit;"
+	);
+}
+
+function mft_get_terms_to_do() {
+	global $wpdb;
+
+	_mft_maybe_register_taxometa_table();
+
+	return $wpdb->get_var(
+		"SELECT COUNT( term_taxo_id )
+		 FROM {$wpdb->term_taxometa};"
 	);
 }
 
