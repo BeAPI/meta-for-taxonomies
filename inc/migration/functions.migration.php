@@ -61,6 +61,9 @@ function _mft_batch_migrate_terms_metas() {
 function _mft_migrate_terms( $terms_meta ) {
 	global $wpdb;
 
+	// Ensure our table is register
+	_mft_maybe_register_taxometa_table();
+
 	if( empty( $terms_meta ) ) {
 		return array( 'failed' => array(), 'deleted' => 0 );
 	}
@@ -69,10 +72,12 @@ function _mft_migrate_terms( $terms_meta ) {
 	$previous_failed_transactions_count = count( $failed_transactions );
 	$deleted = 0;
 
+	remove_filter( 'get_term_metadata', array( 'MFT_Migration', 'get_term_metadata' ), 10 );
+
 	// Insert metas to the wordpress metas table
 	foreach( $terms_meta as $meta ) {
 
-		$update = add_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
+		$update = update_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
 
 		// If something went wrong save the term metas data and continue
 		if ( is_wp_error( $update ) || false === $update ) {
@@ -82,6 +87,7 @@ function _mft_migrate_terms( $terms_meta ) {
 				'meta_key' => $meta->meta_key,
 				'meta_value' => $meta->meta_value,
 				'is_wp_error' => is_wp_error( $update ),
+				'error' => is_wp_error( $update ) ? $update->get_error_message() : 'false',
 			);
 
 			$failed_transactions[] = $oops;
