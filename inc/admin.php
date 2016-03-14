@@ -14,7 +14,7 @@ class MFT_Admin{
 		}
 
 		$class = 'notice';
-		$message = sprintf( __( 'Meta for taxonomies : The migration to 4.4 native term meta is running. %s TODO', 'sample-text-domain' ), mft_get_terms_to_do() );
+		$message = sprintf( 'Meta for taxonomies : The migration to 4.4 native term meta is running. %s Todo', mft_get_terms_to_do() );
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message );
 	}
