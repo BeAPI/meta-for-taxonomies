@@ -13,9 +13,16 @@ class MFT_Migration {
 	 * MFT_Migration constructor.
 	 */
 	public function __construct() {
+
 		if( self::is_finished() ) {
 			return;
 		}
+		/**
+		 * Handle the possibility of not having finished the job but you need to fully return the
+		 * values of the term metas.
+		 */
+		add_filter( 'get_term_metadata', array( $this, 'get_term_metadata' ), 10, 4 );
+
 
 		if( ! self::can_launch_next() ) {
 			return;
@@ -25,6 +32,22 @@ class MFT_Migration {
 		 * Schedule the next element
 		 */
 		wp_schedule_single_event( time() + MINUTE_IN_SECONDS, 'mft_migrate_term_metas_batch' );
+	}
+
+	/**
+	 * Handle the values between the updates
+	 *
+	 * @param $value
+	 * @param $object_id
+	 * @param $meta_key
+	 * @param $single
+	 *
+	 * @return mixed|null
+	 */
+	public function get_term_metadata( $value, $object_id, $meta_key, $single ) {
+		_mft_maybe_register_taxometa_table();
+		$backcompat = get_metadata( 'term_taxo', $object_id, $meta_key, $single );
+		return empty( $backcompat ) ? null : $backcompat;
 	}
 
 	public static function is_finished() {
