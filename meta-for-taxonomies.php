@@ -53,4 +53,10 @@ if ( ! function_exists( 'get_term_meta' ) ) {
 	// 3. Functions
 	require_once( dirname( __FILE__ ) . '/inc/compat/functions.tpl.php' );
 
+	if( is_admin() ) {
+		require_once( dirname( __FILE__ ) . '/inc/admin.php' );
+
+		new MFT_Admin();
+	}
+
 }
