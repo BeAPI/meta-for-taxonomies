@@ -23,6 +23,11 @@ class MFT_CLI extends WP_CLI_Command {
 	function migrate( $args ) {
 		global $wpdb;
 
+		if( (bool)get_option( 'finished_splitting_shared_terms', false ) === false ) {
+			WP_CLI::line( 'Terms splitting not finished' );
+			return;
+		}
+
 		$number = isset( $args[0] ) ? (int)$args[0] : 100;
 		$limit = $number <= 0 ? '' : ' LIMIT 0, '.$number ;
 
