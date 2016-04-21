@@ -92,7 +92,7 @@ function _mft_migrate_terms( $terms_meta ) {
 
 			$failed_transactions[] = $oops;
 		} else {
-			$deleted += $wpdb->delete( $wpdb->term_taxometa, [ 'meta_id' => $meta->meta_id ], [ '%d' ] );
+			$deleted += $wpdb->delete( $wpdb->term_taxometa, array( 'meta_id' => $meta->meta_id ), array( '%d' ) );
 		}
 	}
 
