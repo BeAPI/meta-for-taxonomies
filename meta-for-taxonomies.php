@@ -1,15 +1,35 @@
 <?php
 /*
-Plugin Name: Meta for Taxonomies
-Plugin URI: http://www.beapi.fr
-Description: Add table for term taxonomy meta and some methods for use it. Inspiration from core post meta.
-Author: Be API
-Author URI: http://beapi.fr
-Version: 1.3.1
-
-TODO:
-	Implement purge cache of term metadata on follow hook : clean_term_cache
-*/
+ Plugin Name: Meta for Taxonomies
+ Version: 1.3.1
+ Plugin URI: http://www.beapi.fr
+ Description: Add table for term taxonomy meta and some methods for use it. Inspiration from core post meta.
+ Author: BE API Technical team
+ Author URI: http://www.beapi.fr
+ Domain Path: languages
+ Text Domain: meta-for-taxonomies
+ 
+ TODO:
+	Implement purge cache of term metadata on follow hook : clean_term_cache 
+ 
+ ----
+ 
+ Copyright 2016 BE API Technical team (human@beapi.fr)
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 /**
  * Before 4.4
