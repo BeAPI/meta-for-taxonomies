@@ -17,7 +17,7 @@ Meta is attached to taxonomy context and not terms, this way allow to have metas
   
 **Tested up to:** 4.0
   
-**Stable tag:** 1.3.1
+**Stable tag:** 1.3.2
   
 No UI ! This plugin implements the WP Meta API for terms. Metadatas is attached to taxonomy context and not terms, this way allow to have metas different for the same term on 2 different taxonomies !
 
@@ -51,6 +51,10 @@ For full info go the [Meta for taxonomies](https://github.com/herewithme/meta-fo
 3. Develop your plugin for used it !
 
 ## Changelog ##
+
+### 1.3.2
+* 28 October 2016
+* Fix ambiguous sql query in get_term_taxonomy_id_from_meta function
 
 ### 1.3.1
 * 28 May 2016
