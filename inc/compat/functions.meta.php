@@ -88,11 +88,7 @@ function get_term_taxonomy_custom( $term_taxonomy_id = 0 ) {
 
 	$term_taxonomy_id = (int) $term_taxonomy_id;
 
-	if ( ! wp_cache_get( $term_taxonomy_id, 'term_taxo_meta' ) ) {
-		update_termmeta_cache( $term_taxonomy_id );
-	}
-
-	return wp_cache_get( $term_taxonomy_id, 'term_taxo_meta' );
+	return get_metadata( 'term', $term_taxonomy_id );
 }
 
 /**
