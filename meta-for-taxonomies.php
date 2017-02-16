@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Meta for Taxonomies
- Version: 1.3.2
+ Version: 1.3.3
  Plugin URI: http://www.beapi.fr
  Description: Add table for term taxonomy meta and some methods for use it. Inspiration from core post meta.
  Author: BE API Technical team
