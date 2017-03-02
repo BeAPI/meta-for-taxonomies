@@ -49,7 +49,24 @@ class MFT_Migration {
 		return empty( $backcompat ) ? null : $backcompat;
 	}
 
+	/**
+	 * Check if the native table have been created before lauching futher actions.
+	 *
+	 * @return bool
+	 * @author Nicolas JUEN
+	 */
+	public static function native_table_created() {
+		// Bail if term meta table is not installed.
+		if ( get_option( 'db_version' ) < 34370 ) {
+			return false;
+		}
+	}
+
 	public static function is_finished() {
+		if ( ! self::native_table_created() ) {
+			return false;
+		}
+
 		/**
 		 * Bootstrap terms metas migration.
 		 */
@@ -65,6 +82,11 @@ class MFT_Migration {
 	}
 
 	public static function can_launch_next() {
+
+		if ( ! self::native_table_created() ) {
+			return false;
+		}
+
 		$finished_migrating_terms_metas = (bool)get_option( 'finished_migrating_terms_metas', false );
 		// Avoid rescheduling our cron
 		if ( true === $finished_migrating_terms_metas && wp_next_scheduled( 'mft_migrate_term_metas_batch' ) ) {

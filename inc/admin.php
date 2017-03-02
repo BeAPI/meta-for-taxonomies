@@ -9,7 +9,7 @@ class MFT_Admin{
 	}
 
 	public function admin_notices() {
-		if( MFT_Migration::is_finished() ) {
+		if ( MFT_Migration::is_finished() ) {
 			return;
 		}
 

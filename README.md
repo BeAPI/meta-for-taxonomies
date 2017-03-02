@@ -52,6 +52,10 @@ For full info go the [Meta for taxonomies](https://github.com/herewithme/meta-fo
 
 ## Changelog ##
 
+### 1.3.4
+* 2 March 2017
+* Check if the native table have been created before launching anything
+
 ### 1.3.3
 * 16 February 2017
 * Change get_term_taxonomy_custom internal to use get_metadata
