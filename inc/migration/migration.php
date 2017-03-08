@@ -14,16 +14,21 @@ class MFT_Migration {
 	 */
 	public function __construct() {
 
-		if( self::is_finished() ) {
+		if ( ! self::native_table_created() ) {
 			return;
 		}
+
+		if ( self::is_finished() ) {
+			return;
+		}
+
 		/**
 		 * Handle the possibility of not having finished the job but you need to fully return the
 		 * values of the term metas.
 		 */
 		add_filter( 'get_term_metadata', array( __CLASS__, 'get_term_metadata' ), 10, 4 );
 
-		if( ! self::can_launch_next() ) {
+		if ( ! self::can_launch_next() ) {
 			return;
 		}
 
@@ -60,25 +65,15 @@ class MFT_Migration {
 		if ( get_option( 'db_version' ) < 34370 ) {
 			return false;
 		}
+
+		return true;
 	}
 
 	public static function is_finished() {
-		if ( ! self::native_table_created() ) {
-			return false;
-		}
-
 		/**
 		 * Bootstrap terms metas migration.
 		 */
-		$finished_split_terms = (bool)get_option( 'finished_splitting_shared_terms', false );
-		$finished_migrating_terms_metas = (bool)get_option( 'finished_migrating_terms_metas', false );
-
-		// We have to wait for wp split terms completion
-		if ( false === $finished_split_terms || false === $finished_migrating_terms_metas ) {
-			return false;
-		}
-
-		return true;
+		return (bool) get_option( 'finished_migrating_terms_metas', false );
 	}
 
 	public static function can_launch_next() {
@@ -87,13 +82,12 @@ class MFT_Migration {
 			return false;
 		}
 
-		$finished_migrating_terms_metas = (bool)get_option( 'finished_migrating_terms_metas', false );
-		// Avoid rescheduling our cron
-		if ( true === $finished_migrating_terms_metas && wp_next_scheduled( 'mft_migrate_term_metas_batch' ) ) {
+		if ( false === (bool) get_option( 'finished_migrating_terms_metas', false ) ) {
 			return false;
 		}
 
-		return true;
+		// Avoid rescheduling our cron.
+		return false === wp_next_scheduled( 'mft_migrate_term_metas_batch' ) ? false : true;
 	}
 }
 

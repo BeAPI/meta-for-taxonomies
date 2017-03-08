@@ -52,6 +52,20 @@ For full info go the [Meta for taxonomies](https://github.com/herewithme/meta-fo
 
 ## Changelog ##
 
+### 1.3.5
+* 8 March 2017
+* Always return value for the native table check
+* Avoid enormous options for the migration
+
+### 1.3.4
+* 2 March 2017
+* Check if the native table have been created before launching anything
+
+### 1.3.3
+* 16 February 2017
+* Change get_term_taxonomy_custom internal to use get_metadata
+* Update delete_term_meta_by_key sql queries to use new term meta table
+
 ### 1.3.2
 * 28 October 2016
 * Fix ambiguous sql query in get_term_taxonomy_id_from_meta function

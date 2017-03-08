@@ -8,7 +8,7 @@ add_action( 'mft_migrate_term_metas_batch', '_mft_batch_migrate_terms_metas' );
  * @author Clément Boirie
  */
 function _mft_batch_migrate_terms_metas() {
-	// Ensure our table is register
+	// Ensure our table is register.
 	_mft_maybe_register_taxometa_table();
 
 	global $wpdb;
@@ -64,42 +64,36 @@ function _mft_migrate_terms( $terms_meta ) {
 	// Ensure our table is register
 	_mft_maybe_register_taxometa_table();
 
-	if( empty( $terms_meta ) ) {
+	if ( empty( $terms_meta ) ) {
 		return array( 'failed' => array(), 'deleted' => 0 );
 	}
 
 	$failed_transactions = get_option( 'mft_migrate_fails', array() );
-	$previous_failed_transactions_count = count( $failed_transactions );
 	$deleted = 0;
 
 	remove_filter( 'get_term_metadata', array( 'MFT_Migration', 'get_term_metadata' ), 10 );
 
-	// Insert metas to the wordpress metas table
-	foreach( $terms_meta as $meta ) {
-
+	// Insert metas to the wordpress metas table.
+	foreach ( $terms_meta as $meta ) {
 		$update = update_term_meta( $meta->term_id, $meta->meta_key, $meta->meta_value );
 
-		// If something went wrong save the term metas data and continue
+		// If something went wrong save the term metas data and continue.
 		if ( is_wp_error( $update ) || false === $update ) {
 			$oops = array(
 				'taxonomy' => $meta->taxonomy,
 				'term_id' => $meta->term_id,
 				'meta_key' => $meta->meta_key,
-				'meta_value' => $meta->meta_value,
 				'is_wp_error' => is_wp_error( $update ),
-				'error' => is_wp_error( $update ) ? $update->get_error_message() : 'false',
 			);
 
-			$failed_transactions[] = $oops;
+			$failed_transactions[ $meta->term_id.'_'.$meta->meta_key ] = $oops;
 		} else {
 			$deleted += $wpdb->delete( $wpdb->term_taxometa, array( 'meta_id' => $meta->meta_id ), array( '%d' ) );
 		}
 	}
 
-	// Save failed transactions if new ones
-	if ( count( $failed_transactions ) !== $previous_failed_transactions_count ) {
-		update_option( 'mft_migrate_fails', $failed_transactions );
-	}
+	// Save failed transactions if new ones. Do not autoload possible big table.
+	update_option( 'mft_migrate_fails', $failed_transactions, false );
 
 	return array( 'failed' => $failed_transactions, 'deleted' => $deleted );
 }

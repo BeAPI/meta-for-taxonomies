@@ -52,6 +52,11 @@ For full info go the [Meta for taxonomies](https://github.com/herewithme/meta-fo
 
 ## Changelog ##
 
+### 1.3.5
+* 8 March 2017
+* Always return value for the native table check
+* Avoid enormous options for the migration
+
 ### 1.3.4
 * 2 March 2017
 * Check if the native table have been created before launching anything
