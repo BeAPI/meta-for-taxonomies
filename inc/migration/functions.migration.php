@@ -23,6 +23,11 @@ function _mft_batch_migrate_terms_metas() {
 
 		// Bail if we were unable to create a lock, or if the existing lock is still valid.
 		if ( ! $lock_result || ( $lock_result > ( time() - HOUR_IN_SECONDS ) ) ) {
+
+			// Do not program scheduled element if already scheduled.
+			if ( false !== wp_next_scheduled( 'mft_migrate_term_metas_batch' ) ) {
+				return;
+			}
 			wp_schedule_single_event( time() + ( MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
 
 			return;
@@ -35,7 +40,7 @@ function _mft_batch_migrate_terms_metas() {
 	// Get a list of shared terms (those with more than one associated row in term_taxonomy).
 	$terms_metas = _mft_migrate_get_terms();
 
-	// Migrate the terms
+	// Migrate the terms.
 	_mft_migrate_terms( $terms_metas );
 
 	// No more terms, we're done here.
@@ -45,8 +50,11 @@ function _mft_batch_migrate_terms_metas() {
 		return;
 	}
 
-	// Terms metas found? We'll need to run this script again.
-	wp_schedule_single_event( time() + ( MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
+	// Do not program scheduled element if already scheduled.
+	if ( false === wp_next_scheduled( 'mft_migrate_term_metas_batch' ) ) {
+		// Terms metas found? We'll need to run this script again.
+		wp_schedule_single_event( time() + ( MINUTE_IN_SECONDS ), 'mft_migrate_term_metas_batch' );
+	}
 
 	delete_option( $lock_name );
 }
