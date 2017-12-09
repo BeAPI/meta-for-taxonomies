@@ -62,11 +62,7 @@ class MFT_Migration {
 	 */
 	public static function native_table_created() {
 		// Bail if term meta table is not installed.
-		if ( get_option( 'db_version' ) < 34370 ) {
-			return false;
-		}
-
-		return true;
+		return ( (int) get_option( 'db_version' ) > 34370 );
 	}
 
 	public static function is_finished() {
